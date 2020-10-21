@@ -10,7 +10,7 @@ import helmet from 'helmet';
 import { errors } from 'celebrate';
 import logger from '@config/logger';
 
-import createConnection from '@shared/infra/typeorm';
+// import createConnection from '@shared/infra/typeorm';
 import express, { Request, Response, NextFunction } from 'express';
 
 import AppError from '@shared/errors/AppError';
@@ -19,7 +19,7 @@ import routes from './routes';
 
 require('events').EventEmitter.defaultMaxListeners = 12;
 
-createConnection();
+// createConnection();
 
 const app = express();
 

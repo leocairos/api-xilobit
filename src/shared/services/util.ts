@@ -1,15 +1,4 @@
-import { hash, compare } from 'bcryptjs';
 import { Request } from 'express';
-
-class BCryptHash {
-  public async generateHash(payload: string): Promise<string> {
-    return hash(payload, 8);
-  }
-
-  public async compareHash(payload: string, hashed: string): Promise<boolean> {
-    return compare(payload, hashed);
-  }
-}
 
 const remoteIp = (request: Request): string => {
   const ip =
@@ -20,4 +9,4 @@ const remoteIp = (request: Request): string => {
   return ip;
 };
 
-export { remoteIp, BCryptHash };
+export default remoteIp;
