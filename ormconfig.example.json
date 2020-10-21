@@ -1,11 +1,16 @@
 [
   {
-    "type": "postgres",
-    "host": "127.0.0.1",
-    "port": 5432,
-    "username": "postgres",
-    "password": "password",
-    "database": "api-db",
+    "name": "default",
+    "type": "mssql",
+    "host": "nomeDNS",
+    "port": 1433,
+    "username": "user",
+    "password": "senha",
+    "database": "bd",
+    "options": {
+      "encrypt": true,
+      "enableArithAbort": true
+      },
     "entities": ["./src/modules/**/infra/typeorm/entities/*.ts"],
     "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
     "cli": {
@@ -15,7 +20,7 @@
   {
     "name": "mongo",
     "type": "mongodb",
-    "host": "localhost",
+    "host": "192.168.1.1",
     "port": 7017,
     "database": "databasename",
     "useUnifiedTopology": true,
