@@ -18,7 +18,7 @@ export default class ProductsController {
           {
             text: {
               text: [
-                `Product descripton: ${findProductDetail[0]?.description}`,
+                `Produto ${idProduct} -${findProductDetail[0]?.description}`,
               ],
             },
           },
@@ -29,7 +29,7 @@ export default class ProductsController {
       fulfillmentMessages: [
         {
           text: {
-            text: [`Product not found!`],
+            text: [`Produto '${idProduct}' não encontrado!`],
           },
         },
       ],

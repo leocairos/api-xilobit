@@ -10,8 +10,7 @@ export default class SamplesController {
 
     const findSampleDetail = await getConnection('mylims').query(
       `SELECT distinct
-        id, identification, collection_point, sample_conclusion,
-        lote, sample_status
+        id, identification, sample_conclusion, lote, sample_status, sample_type
       FROM
         vw_all_samples vas
       WHERE
@@ -19,10 +18,16 @@ export default class SamplesController {
     );
 
     if (findSampleDetail[0]) {
-      let textSample = `Sample ${findSampleDetail[0]?.id} `;
-      textSample += `${findSampleDetail[0]?.identification} `;
-      textSample += `Lote ${findSampleDetail[0]?.Lote || ''} `;
-      textSample += `[${findSampleDetail[0]?.sample_status}] `;
+      let textSample = `Amostra ${findSampleDetail[0]?.id} `;
+      textSample += `(${findSampleDetail[0]?.sample_type}), `;
+      textSample += `${findSampleDetail[0]?.identification}, `;
+
+      if (findSampleDetail[0].Lote) {
+        textSample += `${findSampleDetail[0]?.Lote} `;
+      }
+
+      console.log(findSampleDetail[0].Lote);
+      textSample += `[${findSampleDetail[0]?.sample_status}]:`;
       textSample += `[${findSampleDetail[0]?.sample_conclusion}]`;
 
       return response.json({
