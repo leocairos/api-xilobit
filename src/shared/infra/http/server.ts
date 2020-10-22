@@ -2,6 +2,8 @@
 import 'reflect-metadata';
 import 'express-async-errors';
 import 'dotenv/config';
+import '@shared/infra/typeorm';
+
 import cors from 'cors';
 import morgan from 'morgan';
 import compression from 'compression';
@@ -10,7 +12,6 @@ import helmet from 'helmet';
 import { errors } from 'celebrate';
 import logger from '@config/logger';
 
-import createConnection from '@shared/infra/typeorm';
 import express, { Request, Response, NextFunction } from 'express';
 
 import AppError from '@shared/errors/AppError';
@@ -18,8 +19,6 @@ import rateLimiter from './middlewares/rateLimiter';
 import routes from './routes';
 
 require('events').EventEmitter.defaultMaxListeners = 12;
-
-createConnection();
 
 const app = express();
 
@@ -60,7 +59,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 
 const appPort = process.env.APP_PORT;
 
-app.listen(appPort, () => {
+app.listen(appPort, async () => {
   logger.info(
     `\n${'#'.repeat(100)}\n${' '.repeat(
       26,

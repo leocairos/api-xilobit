@@ -10,7 +10,7 @@ const dialogflowFulfillmentController = new DialogflowFulfillmentController();
 dialogflowFulfillmentRouter.post(
   '/',
   ensureKeyAuthorization,
-  dialogflowFulfillmentController.activeService,
+  dialogflowFulfillmentController.intentCall,
 );
 
 export default dialogflowFulfillmentRouter;
