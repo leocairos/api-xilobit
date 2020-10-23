@@ -7,6 +7,7 @@ export default class SamplesController {
     response: Response,
   ): Promise<Response> {
     const idSample = request.body?.queryResult?.parameters?.sample_id;
+    const platform = request.body?.queryResult?.fulfillmentMessages?.platform;
 
     const findSampleDetail = await getConnection('mylims').query(
       `SELECT distinct
@@ -26,11 +27,11 @@ export default class SamplesController {
         textSample += `${findSampleDetail[0]?.Lote} `;
       }
 
-      console.log(findSampleDetail[0].Lote);
       textSample += `[${findSampleDetail[0]?.sample_status}]:`;
       textSample += `[${findSampleDetail[0]?.sample_conclusion}]`;
 
-      return response.json({
+      return response.json(
+        /* {
         fulfillmentMessages: [
           {
             text: {
@@ -38,13 +39,31 @@ export default class SamplesController {
             },
           },
         ],
-      });
+      } */
+        {
+          payload: {
+            google: {
+              expectUserResponse: true,
+              richResponse: {
+                items: [
+                  {
+                    simpleResponse: {
+                      textToSpeech: textSample,
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      );
     }
+
     return response.json({
       fulfillmentMessages: [
         {
           text: {
-            text: [`Product not found!`],
+            text: [`Amostra não localizada!`],
           },
         },
       ],
