@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { getConnection } from 'typeorm';
+import dialogflowFormatedResponse from '../../dialogflowFulfillment/dialogflowFormatedResponse';
 
 export default class ProductsController {
   public async getResponse(
@@ -13,26 +14,14 @@ export default class ProductsController {
     );
 
     if (findProductDetail[0]) {
-      return response.json({
-        fulfillmentMessages: [
-          {
-            text: {
-              text: [
-                `Produto ${idProduct} -${findProductDetail[0]?.description}`,
-              ],
-            },
-          },
-        ],
-      });
+      return response.json(
+        dialogflowFormatedResponse(
+          `Produto ${idProduct} -${findProductDetail[0]?.description}`,
+        ),
+      );
     }
-    return response.json({
-      fulfillmentMessages: [
-        {
-          text: {
-            text: [`Produto '${idProduct}' não encontrado!`],
-          },
-        },
-      ],
-    });
+    return response.json(
+      dialogflowFormatedResponse(`Produto '${idProduct}' não encontrado!`),
+    );
   }
 }

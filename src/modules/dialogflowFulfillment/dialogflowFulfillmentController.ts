@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import logger from '@config/logger';
 import remoteIp from '@shared/services/util';
 
+import dialogflowFormatedResponse from './dialogflowFormatedResponse';
 import ProductsController from '../intents/protheus/ProductsController';
 import SamplesController from '../intents/mylims/SamplesController';
 
@@ -27,15 +28,7 @@ export default class DialogflowFulfillmentController {
       case 'sample.info':
         return samplesController.getResponse(request, response);
       default:
-        return response.json({
-          fulfillmentMessages: [
-            {
-              text: {
-                text: [`unrelated intent`],
-              },
-            },
-          ],
-        });
+        return response.json(dialogflowFormatedResponse(`unrelated intent`));
     }
   }
 }
