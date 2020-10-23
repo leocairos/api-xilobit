@@ -30,8 +30,7 @@ export default class SamplesController {
       textSample += `[${findSampleDetail[0]?.sample_status}]:`;
       textSample += `[${findSampleDetail[0]?.sample_conclusion}]`;
 
-      return response.json(
-        /* {
+      return response.json({
         fulfillmentMessages: [
           {
             text: {
@@ -39,24 +38,21 @@ export default class SamplesController {
             },
           },
         ],
-      } */
-        {
-          payload: {
-            google: {
-              expectUserResponse: true,
-              richResponse: {
-                items: [
-                  {
-                    simpleResponse: {
-                      textToSpeech: textSample,
-                    },
+        payload: {
+          google: {
+            expectUserResponse: true,
+            richResponse: {
+              items: [
+                {
+                  simpleResponse: {
+                    textToSpeech: textSample,
                   },
-                ],
-              },
+                },
+              ],
             },
           },
         },
-      );
+      });
     }
 
     return response.json({
